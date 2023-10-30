@@ -6,56 +6,82 @@ function getCompChoice() {
     let compChoice = 'None';
     if (selector == 1) {
         compChoice = 'rock';
+        document.getElementById('cImg').src = './images/rock.png'
     } else if (selector == 2) {
         compChoice = 'paper';
+        document.getElementById('cImg').src = './images/paper.png'
     } else {
         compChoice = 'scissors';
+        document.getElementById('cImg').src = './images/scissors.png'
     }
     return compChoice;
 }
 
+let playerChoice = ''
 
-function playRound(playerChoice, compSelection) {
+function chooseRock() {
+    document.getElementById('pImg').src = './images/rock.png'
+    playerChoice = 'rock'
+    compareScore()
+    checkWinner()
+}
+
+function choosePaper() {
+    document.getElementById('pImg').src = './images/paper.png'
+    playerChoice = 'paper'
+    compareScore()
+    checkWinner
+}
+
+function chooseScissors() {
+    document.getElementById('pImg').src = './images/scissors.png'
+    playerChoice = 'scissors'
+    compareScore()
+    checkWinner()
+}
+
+
+function compareScore() {
+    const compSelection = getCompChoice();
     if (playerChoice === compSelection) {
         return 'You tied!';
     } else if (playerChoice === 'rock' && compSelection === 'scissors') {
         playerScore++;
-        return 'You Win! Rock beats Scissors';
+        document.getElementById('pScore').innerHTML = playerScore;
     } else if (playerChoice === 'rock' && compSelection === 'paper') {
         compScore++;
-        return 'You Lose! Paper beats Rock';
+        document.getElementById('cScore').innerHTML = compScore;
     } else if (playerChoice === 'scissors' && compSelection === 'paper') {
         playerScore++;
-        return 'You Win! Scissors beats paper';
+        document.getElementById('pScore').innerHTML = playerScore;
     } else if (playerChoice === 'scissors' && compSelection === 'rock') {
         compScore++;
-        return 'You Lose! Rock beats Scissors';
+        document.getElementById('cScore').innerHTML = compScore;
     } else if (playerChoice === 'paper' && compSelection === 'rock') {
         playerScore++;
-        return 'You Win! Paper beats Rock';
+        document.getElementById('pScore').innerHTML = playerScore;
     } else {
         compScore++;
-        return 'You Lose! Scissors beats Paper';
+        document.getElementById('cScore').innerHTML = compScore;
     }
 }
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        const playerChoice = prompt("Rock, Paper or Scissors?").toLowerCase();
-        const compSelection = getCompChoice();
-        console.log(playRound(playerChoice, compSelection))
-    }
-
-    if (playerScore > compScore) {
-        console.log('You are the winner!!!');
-    } else if (playerScore < compScore) {
-        console.log('You are the loser!!!');
-    } else {
-        console.log(' You tied with the computer!!!');
+function checkWinner() {
+    if (playerScore == 5) {
+        document.getElementById('winner').innerHTML = "YOU WON THE GAME!";
+        playerScore = 0     
+        compScore = 0
+        document.getElementById('pScore').innerHTML = playerScore;
+        document.getElementById('cScore').innerHTML = compScore;
+    } else if (compScore == 5) {
+        document.getElementById('winner').innerHTML = "YOU LOST THE GAME!";
+        playerScore = 0
+        compScore = 0
+        document.getElementById('pScore').innerHTML = playerScore;
+        document.getElementById('cScore').innerHTML = compScore;
     }
 }
 
-game();
 
 
 
